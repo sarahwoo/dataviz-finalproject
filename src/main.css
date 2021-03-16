@@ -5,10 +5,112 @@ a {
 
 html,
 body {
-  background: #D6D6CE;
-  font-family: Verdana, Geneva, sans-serif;
+  background: white;
+  font-family: Verdana, sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
   width: 100%;
+}
+  
+.align {
+  text-align: center;
+}
+
+.button {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.flex-down {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+#gyear {
+  justify-content:flex-start;
+  padding-top: 50px;
+  padding-left: 80px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#ccountry {
+  justify-content:flex-start;
+  padding-top: 50px;
+  padding-right: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#cyear {
+  padding-top: 50px;
+  padding-right: 50px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#dropdown4 {
+  padding-top: 30px;
+  font-size: smaller;
+  font-weight: bold;
+}
+
+.iso {
+  width: 400px;
+  height: 300px;
+  padding-top: 50px
+}
+
+#global-button {
+  height: 20px;
+  width: 80px;
+  font-size: 8pt;
+}
+
+#country-button {
+  height: 20px;
+  width: 80px;
+  font-size: 8pt;
+}
+
+#worldmap {
+  justify-content: center;
+}
+
+#barchart {
+  justify-content: center;
+}
+
+.graphs {
+  display: flex;
+  height: 180px;
+}
+
+#tooltip {
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  height: 40px;
+  padding: 5px;
+  font: 10px sans-serif;
+  background: white;
+  border: 3px solid  palevioletred;
+  border-radius: 8px;
+  pointer-events: none;
+  font-weight: bolder;
+  margin: auto;
+  display: inline-block;
 }
