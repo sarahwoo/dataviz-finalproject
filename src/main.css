@@ -114,3 +114,7 @@ body {
   margin: auto;
   display: inline-block;
 }
+
+#slide2-dropdown {
+  height: 150px
+}

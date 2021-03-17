@@ -21,7 +21,7 @@ createline();
 isotype();
 const slides = [
   {
-    title1: 'Slide 0',
+    title1: '',
     //content1: map(),
     // render: [map, createbar]
     render: () => {
@@ -30,7 +30,7 @@ const slides = [
     },
   },
   {
-    title1: 'Slide 1',
+    title1: '',
     //content1: 'yy',
     //render: [createline, isotype]
     render: () => {
@@ -84,9 +84,17 @@ function map() {
   const mapwidth = 900;
   const mapheight = 230;
 
-  const svg = select('#worldmap')
+  const svgContainer = select('#worldmap')
     .append('div')
     .attr('class', 'map')
+    .style('position', 'relative')
+
+  const tooltip = svgContainer
+    .append('div')
+    .attr('id', 'tooltip')
+    .style('display', 'none');
+
+  const svg = svgContainer
     .append('svg')
     .attr('height', mapheight)
     .attr('width', mapwidth);
@@ -103,7 +111,7 @@ function map() {
   var data = d3.map();
   var colorScale = d3
     .scaleThreshold()
-    .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+    .domain([100000/1000000, 1000000/1000000, 10000000/1000000, 30000000/1000000, 100000000/1000000, 500000000/1000000])
     .range(d3.schemeBlues[7]);
 
   // Load external data and boot
@@ -112,7 +120,7 @@ function map() {
   //     'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson',
   //   ),
   //   d3.csv('./us_export.csv', function(d) {
-  //     data.set(d.code, +d.ExportDollar);
+  //     data.set(d.code, +d.Amounts);
   //   }),
   // ]).then(data => ready(false, data));
   d3.queue()
@@ -124,12 +132,13 @@ function map() {
       d3.csv, //"https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv",
       './us_export.csv',
       function(d) {
-        data.set(d.code, +d.ExportDollar);
+        data.set(d.code, +d.Amounts);
       },
     )
     .await(ready);
-
+  
   function ready(error, topo) {
+
     let mouseOver = function(event, d) {
       d3.selectAll('.Country')
         .transition()
@@ -140,6 +149,20 @@ function map() {
         .duration(200)
         .style('opacity', 1)
         .style('stroke', 'transparent');
+  
+      tooltip
+        .html(() => {
+          console.log(d);
+          return `
+            <span style='color: grey'>Country: ${d.id}</span><br/>
+            <span style='color: grey'>Amount: $${d.Amounts}B</span><br/>
+          `; //           <span style='color: grey'>Year: ${d.Year}</span><br/>
+ 
+        })
+        .style('opacity', 1)
+        .style('left', `${d.PageX}px`)
+        .style('top', `${d.PageY + 30}px`)
+        .style('display', 'block');
     };
 
     let mouseLeave = function(event, d) {
@@ -150,10 +173,8 @@ function map() {
       d3.select(this)
         .transition()
         .duration(200)
-        .style('stroke', 'transparent');
-      //.html(() => {console.log(d);
-      //let text = `<span style='color: grey'>${d.code}</span><br/>`
-      //return text}) //how to show text from the DATA file?
+        .style('stroke', 'transparent')
+        tooltip.style('opacity', 0);
     };
 
     // Draw the map
@@ -167,8 +188,8 @@ function map() {
       .attr('d', d3.geoPath().projection(projection))
       // set the color of each country
       .attr('fill', function(d) {
-        d.ExportDollar = data.get(d.id) || 0;
-        return colorScale(d.ExportDollar);
+        d.Amounts = data.get(d.id) || 0;
+        return colorScale(d.Amounts);
       })
       .style('stroke', 'transparent')
       .attr('class', function(d) {
@@ -182,25 +203,22 @@ function map() {
 }
 
 function createbar() {
-  const yDim2 = 'ExportDollar';
+  const yDim2 = 'Amounts';
   csv('./us_export.csv')
     .then(data => {
       return data.filter(row => {
         //console.log(row[yDim2])
-        return row[yDim2] >= 5000000;
+        return row[yDim2] >= 20000000/1000000;
       });
     })
     .then(barc);
 
   function barc(data) {
     const height2 = 350;
-    const width2 = 800;
+    const width2 = 650;
     const margin2 = {top: 30, bottom: 180, left: 150, right: 50};
     const plotWidth2 = width2 - margin2.left - margin2.right;
     const plotHeight2 = height2 - margin2.top - margin2.bottom;
-
-    const columns = Object.keys(data[0]);
-    const yDim2 = 'ExportDollar';
 
     const byyear = groupBy(data, d => d['Year']);
     const years = Object.keys(byyear);
@@ -288,7 +306,7 @@ function createbar() {
         return Number(row.Year) === Number(globe.Year);
       });
       const yScale = scaleLinear()
-        .domain([0, myMax(filteredData, 'ExportDollar')])
+        .domain([0, myMax(filteredData, 'Amounts')])
         .range([plotHeight2, 0]);
       const xScale = scaleBand()
         .domain(all_countrynames)
@@ -301,8 +319,7 @@ function createbar() {
             .tickSize(0),
         )
         .selectAll('text')
-        //.attr("transform", "rotate(-90)")
-        .attr('font-size', '10px')
+        .attr('font-size', '11px')
         .style('text-anchor', 'end')
         .attr('transform', function(d) {
           return 'translate(' + this.getBBox().height * -1 + ')rotate(-45)';
@@ -313,22 +330,17 @@ function createbar() {
           .ticks(6)
           .tickSize(3),
       );
-      xLabel2.text('Trade Value (in thousand USD)');
-      //yLabel2.text('Countries')
-      //    console.log(data.filter(x => x.Year === year))
-      //groupBy(data, d => d['Year'])
+      xLabel2.text('Trade Value (in billion USD)');
       svg2
         .selectAll('rect')
-        .data(filteredData) //.data(data.filter(x => x.Year === year))
+        .data(filteredData) 
         .join('rect')
-        // .attr('x', d => xScale(0, d['ExportDollar']))
-        .attr('y', d => yScale(d['ExportDollar']))
+        .attr('y', d => yScale(d['Amounts']))
         .attr('x', d => xScale(d['Name']))
-        .attr('height', d => yScale(0) - yScale(d['ExportDollar']))
-        .attr('width', 5)
-        //    .attr('transform', 'rotate(-180)')
+        .attr('height', d => yScale(0) - yScale(d['Amounts']))
+        .attr('width', 15)
         .attr('stroke', 'black')
-        .attr('fill', (_, idx) => interpolateRainbow(idx / 231));
+        .attr('fill', (_, idx) => interpolateRainbow(idx / 20));
     }
     renderbarc();
   }
@@ -346,7 +358,7 @@ function createline() {
     const plotHeight = height - margin.top - margin.bottom;
     const myMax = (data, key) => Math.max(...data.map(x => x[key]));
     const xDim = 'Year';
-    const yDim = 'ExportDollar';
+    const yDim = 'Amounts';
     const bycountry = groupBy(data, d => d['Name']);
     const countries = Object.keys(bycountry);
     //console.log(countries)
@@ -425,7 +437,7 @@ function createline() {
         .domain(extent(data, d => Number(d.Year)))
         .range([0, plotWidth]);
       const yScale = scaleLinear()
-        .domain([0, myMax(data, 'ExportDollar')])
+        .domain([0, myMax(data, 'Amounts')])
         .range([plotHeight, 0]);
       xAxis
         .call(
@@ -454,7 +466,7 @@ function createline() {
         .attr('font-weight', 'bold')
         .attr('transform', `translate(0, 0)`);
       yLabel
-        .text('Trade Value (in thousand USD)')
+        .text('Trade Value (in billion USD)')
         .attr('font-size', '10px')
         .attr('font-weight', 'bold')
         .attr('transform', `rotate(-90)`)
@@ -465,7 +477,6 @@ function createline() {
       lineFunc.x(d => xScale(Number(d[xDim]))).y(d => yScale(Number(d[yDim])));
 
       svg
-        // .append('g')
         .selectAll('.country-line')
         .data(
           Object.entries(bycountry)
@@ -478,12 +489,10 @@ function createline() {
         .attr('class', 'country-line')
         .attr('d', lineFunc)
         .attr('fill', 'none')
-        //      .attr('stroke', (_, idx) => interpolateRainbow(idx / 231))
         .attr('stroke', 'palevioletred')
         .attr('stroke-width', 3);
 
       svg
-        // .append('g')
         .selectAll('circle')
         .data(
           ...Object.entries(bycountry)
@@ -498,16 +507,11 @@ function createline() {
         .attr('r', 4)
         .attr('cx', d => xScale(Number(d[xDim])))
         .attr('cy', d => yScale(Number(d[yDim])))
-        //.attr('fill', (_, idx) => interpolateRainbow(idx / 231))
         .attr('fill', 'palevioletred')
         .on('mouseover', function(event, d) {
           tooltip
             .html(() => {
               console.log(d);
-              // let text = `<span style='color: grey'>${d.Name}</span><br/>`;
-              // text += `<span style='color: grey'>Year: ${d.Year}</span><br/>`;
-              // text += `<span style='color: grey'>Amount: ${d['Current Gross Export']}</span><br/>`;
-              // return text;
               return `
                 <span style='color: grey'>${d.Name}</span><br/>
                 <span style='color: grey'>Year: ${d.Year}</span><br/>
@@ -516,7 +520,7 @@ function createline() {
             })
             .style('opacity', 1)
             .style('left', `${xScale(d.Year)}px`)
-            .style('top', `${yScale(d.ExportDollar) + 30}px`)
+            .style('top', `${yScale(d.Amounts) + 30}px`)
             .style('display', 'block');
         })
         .on('mouseout', function(event, d) {
