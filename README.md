@@ -1,3 +1,4 @@
+
 # Dynamic Project Scaffold
 
 In this folder I've provided an example project that enables you to use modern javascript tooling with as little effort as possible. This scaffold includes
@@ -56,3 +57,4 @@ Netlify is an excellent company that tries to make the dev process as easy as po
 ### GH Pages
 
 gh-pages is a wonderful resource for doing web-development, and allows you to have classy YOU_PERSONAL_DOMAIN/projectname type links. You can deploy this scaffold there by running 'yarn build' in your command line, commiting the modified file, and push to github. If you've configured your projects settings correct it should all just work out.
+
