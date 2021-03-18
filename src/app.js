@@ -8,6 +8,7 @@ import {scaleLinear, scaleBand} from 'd3-scale';
 import {interpolateRainbow} from 'd3-scale-chromatic';
 import vegaEmbed from 'vega-embed';
 import Isotype from './isotype';
+import Isotype2 from './isotype2'
 import {create} from 'lodash';
 const groupBy = require('lodash.groupby');
 const state = {Name: 'Canada', Year: 2018};
@@ -18,6 +19,8 @@ createbar()
 createbar2()
 createline()
 createline2()
+isotype()
+isotype2()
 
 const slides = [
   {
