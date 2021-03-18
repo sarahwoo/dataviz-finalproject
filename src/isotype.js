@@ -1,6 +1,5 @@
-import myData from './xxxx.json';
+import myData from './isodata.json';
 function makeIso(country, year) {
-  console.log(country, year);
   return {
     config: {
       title: {font: 'Verdana'},

@@ -11,7 +11,6 @@ import Isotype from './isotype';
 import {create} from 'lodash';
 const groupBy = require('lodash.groupby');
 const state = {Name: 'Canada', Year: 2018};
-const globe = {Year: 2018};
 
 const mapDraw = map();
 createbar();
@@ -19,15 +18,14 @@ createline();
 isotype();
 const slides = [
   {
-    title1: "The United States currently trades with xx countries, and is the world's nth largest exporter in goods and services.\
-    Because ",
+    content1: "The United States currently trades with more than 200 countries and the U.S. is the world's largest trading nation in goods and services (source: The Office of the USTR). The top 10 countries that the U.S. exported to during the World Trade Organization period (1995-2018) are displayed by the bar graph on the right, where you can select a different year using the drop-down menu and hover over the graph to see the export values. Leveraging this information, follow through the steps below to explore the trends in U.S. exports, as well as the different products that the U.S. exported to different countries! (Data source: The ATLAS of Economic Complexity)",
     render: () => {
       selectAll('.slide').style('display', 'none');
       select('#slide-detail1').style('display', 'flex');
     },
   },
   {
-    title1: '',
+    content1: 'slide2',
     render: () => {
       selectAll('.slide').style('display', 'none');
       select('#slide-detail2').style('display', 'flex');
@@ -42,7 +40,7 @@ function main() {
     renderSlide();
   };
 
-  const header1 = select('#slide1-content h5');
+  const cont1 = select('#slide1-content h5');
 
   select('#export-button').on('click', () =>
     updateState(0),
@@ -53,8 +51,8 @@ function main() {
 
   function renderSlide() {
     const currentSlide = slides[currentSlideIdx];
-    header1.text(currentSlide.title1);
-    // body1.text(currentSlide.content1);
+    cont1.text(currentSlide.content1);
+//    cont2.text(currentSlide.content2);
     currentSlide.render();
   }
   renderSlide();
@@ -69,7 +67,7 @@ function isotype() {
 function map() {
   //leveraged the following code for the map (https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html)
   const mapwidth = 600;
-  const mapheight = 230;
+  const mapheight = 180;
 
   const svgContainer = select('#worldmap')
     .append('div')
@@ -118,12 +116,13 @@ function map() {
       './us_export.csv',
       function(d) {
         data.set(d.code, +d.Amounts);
+      //console.log(d.Name)
       },
     )
     .await(ready);
   
   function ready(error, topo) {
-
+    console.log(topo)
     let mouseOver = function(event, d) {
       d3.selectAll('.Country')
         .transition()
@@ -195,9 +194,9 @@ function createbar() {
     .then(barc);
 
   function barc(data) {
-    const height2 = 225;
+    const height2 = 125;
     const width2 = 400;
-    const margin2 = {top: 0, bottom: 150, left: 50, right: 50};
+    const margin2 = {top: 10, bottom: 70, left: 60, right: 50};
     const plotWidth2 = width2 - margin2.left - margin2.right;
     const plotHeight2 = height2 - margin2.top - margin2.bottom;
 
@@ -212,15 +211,14 @@ function createbar() {
       .data(['Year'])
       .join('div')
       .text(d => d);
+    
+    const globe = {Year: 2018};
 
     gyeardropdown
       .append('select')
       .on('change', (event, row) => {
-        //    console.log(globe[row])
         globe[row] = event.target.value;
         renderbarc();
-        mapDraw();
-        // map(); //how to render map with the same year button?
       })
       .selectAll('option')
       .data(dim => {
@@ -232,7 +230,7 @@ function createbar() {
         return globe[d.dim] === d.key;
       });
 */
-    const yearrange = [
+     const yearrange = [
       1995,
       1996,
       1997,
@@ -272,7 +270,6 @@ function createbar() {
       .append('select')
       .on('change', (event, row) => {
         state.Year = event.target.value;
-        vegaEmbed('#isotypegraph', Isotype(state.Name, state.Year));
         renderbarc()
       })
       .selectAll('option')
@@ -357,22 +354,31 @@ function createbar() {
       yAxis2.call(
         axisLeft(yScale)
           .ticks(3)
-          .tickSize(3),
+          .tickSize(0),
       ).selectAll('text')
       .attr('font-size', '10px');
 
-//      xLabel2.text('Trade (in $billion)');
+      xLabel2.text('Value($B)');
       
       svg2
         .selectAll('rect')
-        .data(filteredData) 
-        .join('rect')
+        .data(filteredData)
+        .enter()
+        .append('rect')
         .attr('y', d => yScale(d['Amounts']))
         .attr('x', d => xScale(d['Name']))
         .attr('height', d => yScale(0) - yScale(d['Amounts']))
         .attr('width', 15)
         .attr('stroke', 'black')
         .attr('fill', (_, idx) => interpolateRainbow(idx / 40));
+      
+      svg2
+        .selectAll("rect")
+        .transition()
+        .duration(800)
+        .attr("y", function(d) { return yScale(d['Amounts']); })
+        .attr("height", function(d) { return yScale(0) - yScale(d['Amounts']); })
+        .delay(function(d,i){console.log(i) ; return(i*100)})
     }
     renderbarc();
   }
@@ -383,7 +389,7 @@ function createline() {
 
   function linec(data) {
     const width = 610;
-    const height = 120;
+    const height = 80;
     const margin = {top: 10, bottom: 30, left: 150, right: 20};
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
@@ -470,7 +476,7 @@ function createline() {
         .call(
           axisBottom(xScale)
             .tickFormat(d3.format('d'))
-            .tickSize(3),
+            .tickSize(0),
         )
         .selectAll('text')
         .attr('transform', function(d) {
@@ -485,7 +491,7 @@ function createline() {
       yAxis.call(
         axisLeft(yScale)
           .ticks(3)
-          .tickSize(3),
+          .tickSize(0),
       );
       xLabel
         .text('Year')
@@ -493,11 +499,11 @@ function createline() {
         .attr('font-weight', 'bold')
         .attr('transform', `translate(0, 0)`);
       yLabel
-        .text('Trade (in $billion)')
-        .attr('font-size', '9px')
+        .text('Value($B)')
+        .attr('font-size', '10px')
         .attr('font-weight', 'bold')
         .attr('transform', `rotate(-90)`)
-        .attr('dx', '-88')
+        .attr('dx', '-60')
         .attr('dy', '-30');
 
       lineFunc.x(d => xScale(Number(d[xDim]))).y(d => yScale(Number(d[yDim])));
@@ -540,7 +546,7 @@ function createline() {
         .enter()
         .append('circle')
         .attr('class', 'country-circle')
-        .attr('r', 3.5)
+        .attr('r', 4)
         .attr('cx', d => xScale(Number(d[xDim])))
         .attr('cy', d => yScale(Number(d[yDim])))
         .attr('fill', 'palevioletred')
@@ -561,8 +567,16 @@ function createline() {
         })
         .on('mouseout', function(event, d) {
           tooltip.style('opacity', 0);
-        });
+        })
+        .on("click", function(event, d) {
+          vegaEmbed('#isotypegraph', Isotype(d.Name, d.Year));
+          //const name = d.Name;
+          //function divFunction(el, name){
+            //alert(el.innerHTML);
+            //return name}  
+        })
     }
     renderlinec();
   }
 }
+

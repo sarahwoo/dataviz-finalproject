@@ -14,43 +14,97 @@
 <body>
   <div class='flex-down'>
     <div class='header'>
-      <h3 class='align'>The U.S. Trade Landscape</h3>    
-      <div class='flex'>
+      <h3 class='align'>The U.S. Trade Landscape</h3>
+      <div class="line-top-left"></div>
+      <div class="line-top-right"></div>
+      <div class="line-left"></div>
+      <div class="line-right"></div>   
+      <div class="line-bottom"></div>
+      <div id="buttons" class='flex'>
         <button id="export-button" class="button">Export View</button>
         <button id="import-button" class="button">Import View</button>
       </div>
-      <div class="line-top-left"></div>
-      <div class="line-top-right"></div>
     </div>
     
-    <div class="flex">
-      <div id="slide-detail1" class="flex-down slide">
+    <div id="slide-detail1" class="flex-down slide">
+      <div id="slide1-content" class="flex-down">
+        <div id="above-graphs" class="flex">
+          <div class="top-left-margin"></div>
+          <h5 class="content"></h5>
+          <div class=bar-year>
+            <div id="cyear" class="flex"></div>
+            <div id="barchart"></div>
+          </div>
+          <div class="top-right-margin"></div>
+        </div>
+        <div id="graphs" class="flex">
+          <div id="mapline" class="flex-down">
+              <h5 id="select-country">1. Select Country</h5>
+              <h5 id="select-country-detail">You can hover on the map to see the country names and export values, and select the country
+                you'd like to view in detail (the darker blue the country is, the more the 
+                U.S. exported to during 1995-2018). The line graph below will update accordingly.</h5>
+              <div id="worldmap"></div>
+              <div class="line-top-left1"></div>
+              <div class="line-top-right1"></div>
+              <div class="line-left1"></div>
+              <div class="line-right1"></div>   
+              <div class="line-bottom1"></div>
+              <h5 id="select-country">2. Select Year</h5>
+              <h5 id="select-country-detail">You can hover on the map to see the export values, and select the year
+                you'd like to view in detail by clicking on the circle. The graph on the right will update accordingly.</h5>
+              <div id="linechart"></div>
+              <div class="line-top-left2"></div>
+              <div class="line-top-right2"></div>
+              <div class="line-left2"></div>
+              <div class="line-right2"></div>   
+              <div class="line-bottom2"></div>
+          </div>
+
+          <div id="iso" class="flex-down">
+            <h5>Selected Country:</h5>
+            <div id="selected-country"></div>
+            <script>
+              divFunction(document.getElementById("selected-country"));
+            </script>
+            <h5>Selected Year: </h5>
+            <h5 id="isotype-detail">This isotype graph gets updated based on your previous selections, which are
+              also listed above (the default is Canada 2018). Explore with the selections on the left!</h5>
+            <div id="isotypegraph"></div>
+            <div class="line-top-left3"></div>
+            <div class="line-top-right3"></div>
+            <div class="line-left3"></div>
+            <div class="line-right3"></div>   
+            <div class="line-bottom3"></div>
+            <div class="line-top-left4"></div>
+            <div class="line-top-right4"></div>
+            <div class="line-left4"></div>
+            <div class="line-right4"></div>   
+            <div class="line-bottom4"></div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    
+    <div id="slide-detail2" class="flex-down slide">
+      <div id="slide1-content" class="flex-down">
         <div class="flex">
-          <div class="line-left"></div>
-          <div id="slide1-content" class="flex-down">
-            <h5 class="content"></h5>
-            <div id="worldmap"></div>
-            <div id="linechart"></div>
+          <div class="top-left-margin"></div>
+          <h5 class="content"></h5>
+          <div class="top-right-margin"></div>
+        </div>
+        <div class="flex">
+          <div class="flex-down">
+              <div id="worldmap"></div>
+              <div id="linechart"></div>
           </div>
           <div class="flex-down">
             <div id="cyear" class="flex"></div>
             <div id="isotypegraph"></div>
           </div> 
-          <div class="line-right"></div>   
-          <div class="line-bottom"></div>
-        </div>
-      </div>
-      <div id="slide-detail2" class="flex-down slide">
-        <div id="slide2-dropdown" class="flex">
-          <div id="cyear" class="flex"></div>
-        </div>
-        <div id="slide2-graph" class="flex">
-          <div id="barchart" class="flex"></div>
-          <div id="isotypegraph" class="flex"></div>
         </div>
       </div>
     </div>
-      <script src="bundle.js"></script>
+    <script src="bundle.js"></script>
   </div>
 </body>
 
