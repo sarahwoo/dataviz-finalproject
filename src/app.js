@@ -125,7 +125,6 @@ function map() {
     .await(ready);
   
   function ready(error, topo) {
-    console.log('hi sarah', topo)
     let mouseOver = function(event, d) {
       d3.selectAll('.Country')
         .transition()
@@ -183,8 +182,10 @@ function map() {
       .on('mouseover', mouseOver)
       .on('mouseleave', mouseLeave)
       .on("click", function(event, d) {
-        d3.select("#selected-country").text(d.properties.name)})
-        //renderlinec(d.properties.Name)});;
+        d3.select("#selected-country").text(d.properties.name)
+        //console.log(d.properties.name)
+        renderlinec(d.properties.name)
+      });;
   }
   return ready;
 }
@@ -404,7 +405,7 @@ function createline() {
     const yDim = 'Amounts';
     const bycountry = groupBy(data, d => d['Name']);
     const countries = Object.keys(bycountry);
-
+/*
     const ccountrydropdown = select('#ccountry')
       .append('div')
       .attr('class', 'ccountrydd')
@@ -432,7 +433,7 @@ function createline() {
       .property('selected', d => {
         return state[d.dim] === d.key;
       });
-
+*/
     const svgContainer = select('#linechart')
       .append('div')
       .attr('class', 'chart-container')
@@ -471,7 +472,7 @@ function createline() {
       .attr('class', 'y-axis-label')
       .append('text');
 
-    function renderlinec() {
+    function renderlinec(inputcountry) {
       const xScale = scaleLinear()
         .domain(extent(data, d => Number(d.Year)))
         .range([0, plotWidth]);
@@ -519,7 +520,7 @@ function createline() {
       .data(
         Object.entries(bycountry)
           .filter(([country, _]) => {
-            return state.Name === country;
+            return inputcountry === country;
           })
           .map(([_, values]) => values),
       )
@@ -545,7 +546,7 @@ function createline() {
         .data(
           ...Object.entries(bycountry)
             .filter(([country, _]) => {
-              return state.Name === country;
+              return inputcountry === country;
             })
             .map(([_, values]) => values),
         )
