@@ -117,6 +117,12 @@ body {
   padding-left: 400px;
 }
 
+#select-year {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 415px;
+}
+
 #select-country-detail {
   margin-top: 0px;
   margin-bottom: 0px;

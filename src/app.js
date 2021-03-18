@@ -122,7 +122,7 @@ function map() {
     .await(ready);
   
   function ready(error, topo) {
-    console.log(topo)
+    //console.log(topo)
     let mouseOver = function(event, d) {
       d3.selectAll('.Country')
         .transition()
@@ -178,7 +178,9 @@ function map() {
       })
       .style('opacity', 0.8)
       .on('mouseover', mouseOver)
-      .on('mouseleave', mouseLeave);
+      .on('mouseleave', mouseLeave)
+      //.on("click", function(event, d) {
+        //renderlinec(d.Name)});;
   }
   return ready;
 }
@@ -186,11 +188,6 @@ function map() {
 function createbar() {
   const yDim2 = 'Amounts';
   csv('./us_export.csv')
-    .then(data => {
-      return data.filter(row => {
-        return row[yDim2] >= 37500000/1000000;
-      });
-    })
     .then(barc);
 
   function barc(data) {
@@ -323,19 +320,24 @@ function createbar() {
       .attr('font-size', '10px')
       .attr('font-weight', 'bold');
 
-    const all_countrynames = [...new Set(data.map(d => d['Name']))];
-    all_countrynames.sort(d3.ascending);
     const myMax = (data, key) => Math.max(...data.map(x => x[key]));
 
-    function renderbarc() {
+    function renderbarc() {      
       let filteredData = data.filter(row => {
         return Number(row.Year) === Number(state.Year);
-      });
+      });      
+
+      let sorted = filteredData.sort((a, b) => d3.descending(Number(a.ExportDollar), Number(b.ExportDollar)))
+
+      let top10data = sorted.slice(0, 10)
+
+      let countrynames = [...new Set(top10data.map(d => d['Name']))]
+
       const yScale = scaleLinear()
-        .domain([0, myMax(filteredData, 'Amounts')])
+        .domain([0, myMax(top10data, 'Amounts')])
         .range([plotHeight2, 0]);
       const xScale = scaleBand()
-        .domain(all_countrynames)
+        .domain(countrynames)
         .range([0, plotWidth2]);
 
       xAxis2
@@ -362,7 +364,7 @@ function createbar() {
       
       svg2
         .selectAll('rect')
-        .data(filteredData)
+        .data(top10data)
         .enter()
         .append('rect')
         .attr('y', d => yScale(d['Amounts']))
@@ -378,7 +380,7 @@ function createbar() {
         .duration(800)
         .attr("y", function(d) { return yScale(d['Amounts']); })
         .attr("height", function(d) { return yScale(0) - yScale(d['Amounts']); })
-        .delay(function(d,i){console.log(i) ; return(i*100)})
+        .delay(function(d,i){ return(i*100)})
     }
     renderbarc();
   }
