@@ -1,16 +1,14 @@
 import {} from 'd3';
 import {select, selectAll} from 'd3-selection';
-import {extent, group} from 'd3-array';
+import {extent} from 'd3-array';
 import {axisBottom, axisLeft} from 'd3-axis';
 import {csv} from 'd3-fetch';
 import {line, format} from 'd3';
-import {timeFormat} from 'd3-time-format';
 import {scaleLinear, scaleBand} from 'd3-scale';
-import {interpolateRainbow, interpolateTurbo} from 'd3-scale-chromatic';
+import {interpolateRainbow} from 'd3-scale-chromatic';
 import vegaEmbed from 'vega-embed';
 import Isotype from './isotype';
 import {create} from 'lodash';
-//import linec from './linechart'
 const groupBy = require('lodash.groupby');
 const state = {Name: 'Canada', Year: 2018};
 const globe = {Year: 2018};
@@ -21,9 +19,8 @@ createline();
 isotype();
 const slides = [
   {
-    title1: '',
-    //content1: map(),
-    // render: [map, createbar]
+    title1: "The United States currently trades with xx countries, and is the world's nth largest exporter in goods and services.\
+    Because ",
     render: () => {
       selectAll('.slide').style('display', 'none');
       select('#slide-detail1').style('display', 'flex');
@@ -31,8 +28,6 @@ const slides = [
   },
   {
     title1: '',
-    //content1: 'yy',
-    //render: [createline, isotype]
     render: () => {
       selectAll('.slide').style('display', 'none');
       select('#slide-detail2').style('display', 'flex');
@@ -47,15 +42,12 @@ function main() {
     renderSlide();
   };
 
-  const header1 = select('#slide1-dropdown h5');
-  const body1 = select('#slide1-dropdown div');
+  const header1 = select('#slide1-content h5');
 
-  select('#global-button').on('click', () =>
-    //updateState(currentSlideIdx ? currentSlideIdx - 1 : slides.length - 1)
+  select('#export-button').on('click', () =>
     updateState(0),
   );
-  select('#country-button').on('click', () =>
-    //updateState((currentSlideIdx + 1) % slides.length)
+  select('#import-button').on('click', () =>
     updateState(1),
   );
 
@@ -70,18 +62,13 @@ function main() {
 
 main();
 
-//map()
-//createbar()
-//createline()
-//isotype()
-
 function isotype() {
   vegaEmbed('#isotypegraph', Isotype('Canada', 2018));
 }
 
 function map() {
   //leveraged the following code for the map (https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html)
-  const mapwidth = 900;
+  const mapwidth = 600;
   const mapheight = 230;
 
   const svgContainer = select('#worldmap')
@@ -99,15 +86,13 @@ function map() {
     .attr('height', mapheight)
     .attr('width', mapwidth);
 
-  // Map and projection
   var path = d3.geoPath();
   var projection = d3
     .geoMercator()
     .scale(82)
-    .center([0, 12])
+    .center([0, 4.7])
     .translate([mapwidth / 2, mapheight / 2]);
 
-  // Data and color scale
   var data = d3.map();
   var colorScale = d3
     .scaleThreshold()
@@ -129,7 +114,7 @@ function map() {
       'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson',
     )
     .defer(
-      d3.csv, //"https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv",
+      d3.csv,
       './us_export.csv',
       function(d) {
         data.set(d.code, +d.Amounts);
@@ -156,7 +141,7 @@ function map() {
           return `
             <span style='color: grey'>Country: ${d.id}</span><br/>
             <span style='color: grey'>Amount: $${d.Amounts}B</span><br/>
-          `; //           <span style='color: grey'>Year: ${d.Year}</span><br/>
+          `;
  
         })
         .style('opacity', 1)
@@ -177,16 +162,13 @@ function map() {
         tooltip.style('opacity', 0);
     };
 
-    // Draw the map
     svg
       .append('g')
       .selectAll('path')
       .data(topo.features)
       .enter()
       .append('path')
-      // draw each country
       .attr('d', d3.geoPath().projection(projection))
-      // set the color of each country
       .attr('fill', function(d) {
         d.Amounts = data.get(d.id) || 0;
         return colorScale(d.Amounts);
@@ -207,22 +189,21 @@ function createbar() {
   csv('./us_export.csv')
     .then(data => {
       return data.filter(row => {
-        //console.log(row[yDim2])
-        return row[yDim2] >= 20000000/1000000;
+        return row[yDim2] >= 37500000/1000000;
       });
     })
     .then(barc);
 
   function barc(data) {
-    const height2 = 350;
-    const width2 = 650;
-    const margin2 = {top: 30, bottom: 180, left: 150, right: 50};
+    const height2 = 225;
+    const width2 = 400;
+    const margin2 = {top: 0, bottom: 150, left: 50, right: 50};
     const plotWidth2 = width2 - margin2.left - margin2.right;
     const plotHeight2 = height2 - margin2.top - margin2.bottom;
 
     const byyear = groupBy(data, d => d['Year']);
     const years = Object.keys(byyear);
-
+/*
     const gyeardropdown = select('#gyear')
       .append('div')
       .attr('class', 'gyeardd')
@@ -249,6 +230,59 @@ function createbar() {
       .text(d => d.key)
       .property('selected', d => {
         return globe[d.dim] === d.key;
+      });
+*/
+    const yearrange = [
+      1995,
+      1996,
+      1997,
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+    ];
+
+    const cyeardropdown = select('#cyear')
+      .append('div')
+      .attr('class', 'cyeardd')
+      .style('display', 'flex')
+      .selectAll('.cyeardd')
+      .data(['Year'])
+      .join('div')
+      .text(d => d);
+
+    cyeardropdown
+      .append('select')
+      .on('change', (event, row) => {
+        state.Year = event.target.value;
+        vegaEmbed('#isotypegraph', Isotype(state.Name, state.Year));
+        renderbarc()
+      })
+      .selectAll('option')
+      .data(dim => {
+        return yearrange.map(key => ({key, dim}));
+      })
+      .join('option')
+      .text(d => d.key)
+      .property('selected', d => {
+        return state[d.dim] === d.key;
       });
 
     const svgContainer2 = select('#barchart')
@@ -285,17 +319,12 @@ function createbar() {
     const xLabel2 = svg2
       .append('g')
       .attr('class', 'y-axis-label2')
-      .attr('transform', `translate(-75, ${plotHeight2 / 2})`)
+      .attr('transform', `translate(-30, ${plotHeight2 / 2})`)
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('transform', `rotate(-90)`)
       .attr('font-size', '10px')
       .attr('font-weight', 'bold');
-
-    const tooltip = svgContainer2
-      .append('div')
-      .attr('id', 'tooltip')
-      .style('display', 'none');
 
     const all_countrynames = [...new Set(data.map(d => d['Name']))];
     all_countrynames.sort(d3.ascending);
@@ -303,7 +332,7 @@ function createbar() {
 
     function renderbarc() {
       let filteredData = data.filter(row => {
-        return Number(row.Year) === Number(globe.Year);
+        return Number(row.Year) === Number(state.Year);
       });
       const yScale = scaleLinear()
         .domain([0, myMax(filteredData, 'Amounts')])
@@ -319,7 +348,7 @@ function createbar() {
             .tickSize(0),
         )
         .selectAll('text')
-        .attr('font-size', '11px')
+        .attr('font-size', '10px')
         .style('text-anchor', 'end')
         .attr('transform', function(d) {
           return 'translate(' + this.getBBox().height * -1 + ')rotate(-45)';
@@ -327,10 +356,13 @@ function createbar() {
 
       yAxis2.call(
         axisLeft(yScale)
-          .ticks(6)
+          .ticks(3)
           .tickSize(3),
-      );
-      xLabel2.text('Trade Value (in billion USD)');
+      ).selectAll('text')
+      .attr('font-size', '10px');
+
+//      xLabel2.text('Trade (in $billion)');
+      
       svg2
         .selectAll('rect')
         .data(filteredData) 
@@ -340,7 +372,7 @@ function createbar() {
         .attr('height', d => yScale(0) - yScale(d['Amounts']))
         .attr('width', 15)
         .attr('stroke', 'black')
-        .attr('fill', (_, idx) => interpolateRainbow(idx / 20));
+        .attr('fill', (_, idx) => interpolateRainbow(idx / 40));
     }
     renderbarc();
   }
@@ -350,10 +382,9 @@ function createline() {
   csv('./us_export.csv').then(linec);
 
   function linec(data) {
-    //  console.log(data)
-    const width = 400;
-    const height = 255;
-    const margin = {top: 10, bottom: 50, left: 90, right: 20};
+    const width = 610;
+    const height = 120;
+    const margin = {top: 10, bottom: 30, left: 150, right: 20};
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
     const myMax = (data, key) => Math.max(...data.map(x => x[key]));
@@ -361,7 +392,6 @@ function createline() {
     const yDim = 'Amounts';
     const bycountry = groupBy(data, d => d['Name']);
     const countries = Object.keys(bycountry);
-    //console.log(countries)
 
     const ccountrydropdown = select('#ccountry')
       .append('div')
@@ -382,15 +412,12 @@ function createline() {
       .selectAll('option')
       .data(dim => {
         return countries.map(key => ({key, dim}));
-        //return yearrange.map(key => ({ key, dim }))}
       })
       .join('option')
       .text(d => {
         return d.key;
       })
       .property('selected', d => {
-        //console.log('hi', d)
-        //console.log(d.key)
         return state[d.dim] === d.key;
       });
 
@@ -457,7 +484,7 @@ function createline() {
         });
       yAxis.call(
         axisLeft(yScale)
-          .ticks(6)
+          .ticks(3)
           .tickSize(3),
       );
       xLabel
@@ -466,31 +493,40 @@ function createline() {
         .attr('font-weight', 'bold')
         .attr('transform', `translate(0, 0)`);
       yLabel
-        .text('Trade Value (in billion USD)')
-        .attr('font-size', '10px')
+        .text('Trade (in $billion)')
+        .attr('font-size', '9px')
         .attr('font-weight', 'bold')
         .attr('transform', `rotate(-90)`)
-        .attr('dx', '-185')
-        .attr('dy', '-75');
-      //.attr('transform', `translate(-100, 80)`)
+        .attr('dx', '-88')
+        .attr('dy', '-30');
 
       lineFunc.x(d => xScale(Number(d[xDim]))).y(d => yScale(Number(d[yDim])));
 
-      svg
-        .selectAll('.country-line')
-        .data(
-          Object.entries(bycountry)
-            .filter(([country, _]) => {
-              return state.Name === country;
-            })
-            .map(([_, values]) => values),
-        )
-        .join('path')
-        .attr('class', 'country-line')
-        .attr('d', lineFunc)
-        .attr('fill', 'none')
-        .attr('stroke', 'palevioletred')
-        .attr('stroke-width', 3);
+      let path = svg
+      .selectAll('.country-line')
+      .data(
+        Object.entries(bycountry)
+          .filter(([country, _]) => {
+            return state.Name === country;
+          })
+          .map(([_, values]) => values),
+      )
+      .join('path')
+      .attr('class', 'country-line')
+      .attr('d', lineFunc)
+      .attr('fill', 'none')
+      .attr('stroke', 'palevioletred')
+      .attr('stroke-width', 3);
+
+      let totalLength = path.node().getTotalLength();
+
+      path
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+      .duration(1500)
+      .ease(d3.easeLinear)
+      .attr("stroke-dashoffset", 0);
 
       svg
         .selectAll('circle')
@@ -504,7 +540,7 @@ function createline() {
         .enter()
         .append('circle')
         .attr('class', 'country-circle')
-        .attr('r', 4)
+        .attr('r', 3.5)
         .attr('cx', d => xScale(Number(d[xDim])))
         .attr('cy', d => yScale(Number(d[yDim])))
         .attr('fill', 'palevioletred')
@@ -530,64 +566,3 @@ function createline() {
     renderlinec();
   }
 }
-
-//const bycountryiso = groupBy(Isotype('Canada')['datasets']["data-aa6ffc56f786323b1a75e18d7a30e801"], d => d['Name'])
-//console.log(bycountryiso)
-//const bycountryyear = groupBy(bycountryiso['Canada'], d => d['Year'])
-
-const yearrange = [
-  1995,
-  1996,
-  1997,
-  1998,
-  1999,
-  2000,
-  2001,
-  2002,
-  2003,
-  2004,
-  2005,
-  2006,
-  2007,
-  2008,
-  2009,
-  2010,
-  2011,
-  2012,
-  2013,
-  2014,
-  2015,
-  2016,
-  2017,
-  2018,
-];
-
-const cyeardropdown = select('#cyear')
-  .append('div')
-  .attr('class', 'cyeardd')
-  .style('display', 'flex')
-  .selectAll('.cyeardd')
-  //.data(['Country','Year'])
-  .data(['Year'])
-  .join('div')
-  .text(d => d);
-
-cyeardropdown
-  .append('select')
-  .on('change', (event, row) => {
-    state.Year = event.target.value;
-    //console.log(state[row])
-    vegaEmbed('#isotypegraph', Isotype(state.Name, state.Year));
-  })
-  .selectAll('option')
-  .data(dim => {
-    //  console.log(yearrange.map(key => ({ key, dim })))
-    //return countries.map(key => ({ key, dim }))
-    return yearrange.map(key => ({key, dim}));
-  })
-  .join('option')
-  .text(d => d.key)
-  .property('selected', d => {
-    //console.log(d.dim)
-    return state[d.dim] === d.key;
-  });

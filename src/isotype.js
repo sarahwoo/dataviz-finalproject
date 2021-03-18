@@ -17,11 +17,11 @@ function makeIso(country, year) {
       x: {type: 'ordinal', axis: {title: null}, field: 'x'},
       y: {type: 'nominal', axis: {title: null}, field: 'Product'},
     },
-    height: 200,
+    height: 250,
     transform: [
       {window: [{op: 'rank', field: '', as: 'x'}], groupby: ['Product']},
     ],
-    width: 330,
+    width: 350,
     $schema: 'https://vega.github.io/schema/vega-lite/v4.8.1.json',
     datasets: {
       'data-aa6ffc56f786323b1a75e18d7a30e801': myData.filter(
@@ -30,8 +30,5 @@ function makeIso(country, year) {
     },
   };
 }
-
-//.filter(x => x.Name === country)
-//.filter(([country, year]) => {return (state.Name === country) && (state.Year === year)}).map(([_, values]) => values))
 
 export default makeIso;

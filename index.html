@@ -16,30 +16,36 @@
     <div class='header'>
       <h3 class='align'>The U.S. Trade Landscape</h3>    
       <div class='flex'>
-        <button id="global-button" class="button">Global View</button>
-        <button id="country-button" class="button">Country View</button>
+        <button id="export-button" class="button">Export View</button>
+        <button id="import-button" class="button">Import View</button>
       </div>
+      <div class="line-top-left"></div>
+      <div class="line-top-right"></div>
     </div>
     
     <div class="flex">
       <div id="slide-detail1" class="flex-down slide">
-        <div id="slide1-dropdown" class="flex">
-          <div id="gyear" class="flex"></div>
-          <h5></h5>
-          <div></div>  
-        </div>
-        <div id="slide1-graph" class="flex-down">
-          <div id="worldmap"></div>
-          <div id="barchart" class="flex-down"></div>
+        <div class="flex">
+          <div class="line-left"></div>
+          <div id="slide1-content" class="flex-down">
+            <h5 class="content"></h5>
+            <div id="worldmap"></div>
+            <div id="linechart"></div>
+          </div>
+          <div class="flex-down">
+            <div id="cyear" class="flex"></div>
+            <div id="isotypegraph"></div>
+          </div> 
+          <div class="line-right"></div>   
+          <div class="line-bottom"></div>
         </div>
       </div>
       <div id="slide-detail2" class="flex-down slide">
         <div id="slide2-dropdown" class="flex">
-          <div id="ccountry" class="flex"></div>  
           <div id="cyear" class="flex"></div>
         </div>
         <div id="slide2-graph" class="flex">
-          <div id="linechart" class="flex"></div>
+          <div id="barchart" class="flex"></div>
           <div id="isotypegraph" class="flex"></div>
         </div>
       </div>

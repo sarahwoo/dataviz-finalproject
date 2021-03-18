@@ -12,7 +12,7 @@ body {
   padding: 0;
   width: 100%;
 }
-  
+
 .align {
   text-align: center;
 }
@@ -41,7 +41,7 @@ body {
 
 #gyear {
   justify-content:flex-start;
-  padding-top: 50px;
+  padding-top: 30px;
   padding-left: 80px;
   font-size: 12px;
   font-weight: bold;
@@ -49,54 +49,57 @@ body {
 
 #ccountry {
   justify-content:flex-start;
-  padding-top: 50px;
+  padding-top: 30px;
   padding-right: 20px;
   font-size: 12px;
   font-weight: bold;
 }
 
 #cyear {
-  padding-top: 50px;
+  padding-top: 30px;
   padding-right: 50px;
   font-size: 12px;
   font-weight: bold;
+  height: fit-content;
 }
 
-#dropdown4 {
-  padding-top: 30px;
-  font-size: smaller;
-  font-weight: bold;
-}
-
-.iso {
-  width: 400px;
-  height: 300px;
-  padding-top: 50px
-}
-
-#global-button {
+#export-button {
   height: 20px;
   width: 80px;
   font-size: 8pt;
 }
 
-#country-button {
+#import-button {
   height: 20px;
   width: 80px;
   font-size: 8pt;
 }
 
 #worldmap {
-  justify-content: center;
+  padding-left: 200px;
+}
+
+.content {
+  font-size: 11px;
+  font-weight: lighter;
+  padding-left: 250px;
+  
+}
+
+#linechart {
+  padding-left: 150px;
+  padding-top: 25px;
+}
+
+#isotypegraph {
+  padding-top: 90px;
+  padding-left: 30px
 }
 
 #barchart {
-  justify-content: center;
-}
-
-.graphs {
-  display: flex;
-  height: 180px;
+  padding-right: 0px;
+  padding-top: 10px;
+  height: 150px;
 }
 
 #tooltip {
@@ -117,4 +120,44 @@ body {
 
 #slide2-dropdown {
   height: 150px
+}
+
+.line-left {
+  border-left: 2px solid paleturquoise;
+  height: 630px;
+  position: absolute;
+  left: 15%;
+  top: 30px;
+}
+
+.line-right {
+  border-right: 2px solid paleturquoise;
+  height: 630px;
+  position: absolute;
+  right: 15%;
+  top: 30px;
+}
+
+.line-top-left {
+  border-top: 2px solid paleturquoise;
+  width: 380px;
+  position: absolute;
+  left: 15%;
+  top: 30px;
+}
+
+.line-top-right {
+  border-top: 2px solid paleturquoise;
+  width: 380px;
+  position: absolute;
+  right: 15%;
+  top: 30px;
+}
+
+.line-bottom {
+  border-bottom: 2px solid paleturquoise;
+  width: 1075px;
+  position: absolute;
+  right: 15%;
+  bottom: 75px;
 }
