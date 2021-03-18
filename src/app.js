@@ -120,13 +120,12 @@ function map() {
       './us_export.csv',
       function(d) {
         data.set(d.code, +d.Amounts);
-      //console.log(d.Name)
       },
     )
     .await(ready);
   
   function ready(error, topo) {
-    //console.log(topo)
+    console.log('hi sarah', topo)
     let mouseOver = function(event, d) {
       d3.selectAll('.Country')
         .transition()
@@ -137,12 +136,12 @@ function map() {
         .duration(200)
         .style('opacity', 1)
         .style('stroke', 'transparent');
-  
+
       tooltip
         .html(() => {
-          console.log(d);
+          console.log(d.properties.name);
           return `
-            <span style='color: grey'>Country: ${d.id}</span><br/>
+            <span style='color: grey'>Country: ${d.properties.name}</span><br/>
             <span style='color: grey'>Amount: $${d.Amounts}B</span><br/>
           `;
  
@@ -183,8 +182,9 @@ function map() {
       .style('opacity', 0.8)
       .on('mouseover', mouseOver)
       .on('mouseleave', mouseLeave)
-      //.on("click", function(event, d) {
-        //renderlinec(d.Name)});;
+      .on("click", function(event, d) {
+        d3.select("#selected-country").text(d.properties.name)})
+        //renderlinec(d.properties.Name)});;
   }
   return ready;
 }
@@ -575,11 +575,8 @@ function createline() {
           tooltip.style('opacity', 0);
         })
         .on("click", function(event, d) {
-          vegaEmbed('#isotypegraph', Isotype(d.Name, d.Year));
-          //const name = d.Name;
-          //function divFunction(el, name){
-            //alert(el.innerHTML);
-            //return name}  
+          vegaEmbed('#isotypegraph', Isotype(d.Name, d.Year)),
+          d3.select("#selected-year").text(d.Year)
         })
     }
     renderlinec();
@@ -1098,11 +1095,8 @@ function createline2() {
           tooltip.style('opacity', 0);
         })
         .on("click", function(event, d) {
-          vegaEmbed('#isotypegraph2', Isotype2(d.Name, d.Year));
-          //const name = d.Name;
-          //function divFunction(el, name){
-            //alert(el.innerHTML);
-            //return name}  
+          vegaEmbed('#isotypegraph2', Isotype2(d.Name, d.Year)),
+          d3.select("#selected-year").text(d.Year) 
         })
     }
     renderlinec();
