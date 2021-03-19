@@ -1,5 +1,4 @@
-**Data Visualization Dynamic Project - Exploring the U.S. Trade Landscape
-**
+**Data Visualization Dynamic Project - Exploring the U.S. Trade Landscape**
 
 Source code credit: leveraged the following code for the world map (https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html)
 
