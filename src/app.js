@@ -532,8 +532,7 @@ function createline() {
             })
             .map(([_, values]) => values),
         )
-        .enter()
-        .append('circle')
+        .join('circle')
         .attr('class', 'country-circle')
         .attr('r', 4)
         .attr('cx', d => xScale(Number(d[xDim])))
@@ -1039,8 +1038,7 @@ function createline2() {
             })
             .map(([_, values]) => values),
         )
-        .enter()
-        .append('circle')
+        .join('circle')
         .attr('class', 'country-circle')
         .attr('r', 4)
         .attr('cx', d => xScale(Number(d[xDim])))

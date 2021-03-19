@@ -31,16 +31,16 @@
         <div id="above-graphs" class="flex">
           <div class="top-left-margin"></div>
           <h5 class="content"></h5>
+          <div id="worldmap"></div>
           <div class="top-right-margin"></div>
         </div>
         <div id="graphs" class="flex">
           <div id="mapline" class="flex-down">
-              <h5 id="select-country">Global View</h5>
+              <h5 id="select-country">Let's explore the data!</h5>
               <h5 id="select-country-detail">
                 Hover on the map to explore how much the U.S. exported to each country in total during the WTO period between 1995 and 2018
                 (the darker the country is, the more the U.S. exported to).
                 Below the map is a bar graph, where you can use the year dropdown to see the top 10 countries that the U.S. exported to each year.</h5>
-              <div id="worldmap"></div>
               <div class="line-top-left1"></div>
               <div class="line-top-right1"></div>
               <div class="line-left1"></div>
@@ -51,14 +51,12 @@
               <div class=bar-year>
                 <div id="cyear" class="flex"></div>
                 <div id="barchart"></div>
+                <div id="ccountry"></div>
+                <div id="linechart"></div>    
               </div>
           </div>
 
           <div id="iso" class="flex-down">
-            <h5 id="isotype-detail">This isotype graph gets updated based on your previous selections, which are
-              also listed above (the default is Canada 2018). Explore with the selections on the left!</h5>
-            <div id="ccountry"></div>
-            <div id="linechart"></div>
             <h5>Selected Country:
               <span id="selected-country"></span>
             </h5>
@@ -66,7 +64,11 @@
               Selected Year: 
               <span id="selected-year"></span>
             </h5>
+            <h5 id="isotype-detail">This isotype graph gets updated based on your previous selections, which are
+              also listed above (the default is Canada 2018, and since each icon represents in value, 
+              less than that would not appear). Explore with the selections on the left!</h5>
             <div id="isotypegraph"></div>
+            <h5>1 icon represents $100,000 in value</h5>
             <div class="line-top-left4"></div>
             <div class="line-top-right4"></div>
             <div class="line-left4"></div>
@@ -82,16 +84,16 @@
         <div id="above-graphs" class="flex">
           <div class="top-left-margin"></div>
           <h5 class="content"></h5>
+          <div id="worldmap2"></div>
           <div class="top-right-margin"></div>
         </div>
         <div id="graphs" class="flex">
           <div id="mapline" class="flex-down">
-              <h5 id="select-country">Global View</h5>
+              <h5 id="select-country">Let's explore the data!</h5>
               <h5 id="select-country-detail">
                 Hover on the map to explore how much the U.S. imported from each country in total during the WTO period between 1995 and 2018
                 (the darker the country is, the more the U.S. imported from).
                 Below the map is a bar graph, where you can use the year dropdown to see the top 10 countries that the U.S. imported from each year.</h5>
-              <div id="worldmap2"></div>
               <div class="line-top-left1"></div>
               <div class="line-top-right1"></div>
               <div class="line-left1"></div>
@@ -102,14 +104,12 @@
               <div class=bar-year>
                 <div id="cyear2" class="flex"></div>      
                 <div id="barchart2"></div>
+                <div id="ccountry2"></div>
+                <div id="linechart2"></div>
               </div>
           </div>
 
           <div id="iso" class="flex-down">
-            <h5 id="isotype-detail">This isotype graph gets updated based on your previous selections, which are
-              also listed above (the default is Canada 2018). Explore with the selections on the left!</h5>
-            <div id="ccountry2"></div>
-            <div id="linechart2"></div>
             <h5>Selected Country:
               <span id="selected-country2"></span>
             </h5>
@@ -117,7 +117,10 @@
               Selected Year: 
               <span id="selected-year2"></span>
             </h5>
+            <h5 id="isotype-detail">This isotype graph gets updated based on your previous selections, which are
+              also listed above (the default is Canada 2018). Explore with the selections on the left!</h5>
             <div id="isotypegraph2"></div>
+            <h5>1 icon represents $100,000 in value</h5>
             <div class="line-top-left4"></div>
             <div class="line-top-right4"></div>
             <div class="line-left4"></div>
