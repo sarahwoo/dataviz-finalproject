@@ -12,20 +12,18 @@
 </head>
 
 <body>
-  <div class='flex-down'>
-    <div class='header'>
-      <h3 class='align'>The U.S. Trade Landscape</h3>
-      <div class="line-top-left"></div>
-      <div class="line-top-right"></div>
-      <div class="line-left"></div>
-      <div class="line-right"></div>   
-      <div class="line-bottom"></div>
-      <div id="buttons" class='flex'>
-        <button id="export-button" class="button">Export View</button>
-        <button id="import-button" class="button">Import View</button>
-      </div>
+  <div id='header flex-down'>
+    <h3 class='align'>The U.S. Trade Landscape</h3>
+    <div id="buttons" class='flex'>
+      <button id="export-button" class="button">Export View</button>
+      <button id="import-button" class="button">Import View</button>
     </div>
-    
+    <div class="line-top-left"></div>
+    <div class="line-top-right"></div>
+    <div class="line-left"></div>
+    <div class="line-right"></div>   
+    <div class="line-bottom"></div>
+  
     <div id="slide-detail1" class="flex-down slide">
       <div id="slide1-content" class="flex-down">
         <div id="above-graphs" class="flex">
@@ -34,20 +32,19 @@
           <div id="worldmap"></div>
           <div class="top-right-margin"></div>
         </div>
+        <div class="dotted"></div>
         <div id="graphs" class="flex">
           <div id="mapline" class="flex-down">
-              <h5 id="select-country">Let's explore the data!</h5>
+              <h5 id="select-country">Let's explore more with the data!</h5>
               <h5 id="select-country-detail">
-                Hover on the map to explore how much the U.S. exported to each country in total during the WTO period between 1995 and 2018
-                (the darker the country is, the more the U.S. exported to).
-                Below the map is a bar graph, where you can use the year dropdown to see the top 10 countries that the U.S. exported to each year.</h5>
-              <div class="line-top-left1"></div>
-              <div class="line-top-right1"></div>
-              <div class="line-left1"></div>
-              <div class="line-right1"></div>   
-              <div class="line-bottom1"></div>
-              <h5 id="select-country-detail">You can hover on the map to see the export values, and select the year
-                you'd like to view in detail by clicking on the circle. The graph on the right will update accordingly.</h5>
+                The top 20 countries that the U.S. exported to during the WTO period are displayed by the 
+                bar graph below. Feel free to select the different years using the drop-down.
+
+                Leveraging this information, you can also select the country you want to view more information on using the drop-down 
+                for the line chart. On the line chart, try hovering over the dots and click on the circle for the year you'd like to view product information for.
+                Your selections will appear on the right and the isotype graph on the right will get updated to show the product compositions of exports 
+                for the country and the year you have selected.
+                </h5>
               <div class=bar-year>
                 <div id="cyear" class="flex"></div>
                 <div id="barchart"></div>
@@ -57,23 +54,18 @@
           </div>
 
           <div id="iso" class="flex-down">
-            <h5>Selected Country:
+            <h5 class="select-text">Selected Country:
               <span id="selected-country"></span>
             </h5>
-            <h5>
+            <h5 class="select-year">
               Selected Year: 
               <span id="selected-year"></span>
             </h5>
             <h5 id="isotype-detail">This isotype graph gets updated based on your previous selections, which are
               also listed above (the default is Canada 2018, and since each icon represents in value, 
               less than that would not appear). Explore with the selections on the left!</h5>
+            <h5 id="isotype-legend">1 icon represents $100,000 in value</h5>
             <div id="isotypegraph"></div>
-            <h5>1 icon represents $100,000 in value</h5>
-            <div class="line-top-left4"></div>
-            <div class="line-top-right4"></div>
-            <div class="line-left4"></div>
-            <div class="line-right4"></div>   
-            <div class="line-bottom4"></div>
           </div> 
         </div>
       </div>
@@ -87,20 +79,16 @@
           <div id="worldmap2"></div>
           <div class="top-right-margin"></div>
         </div>
+        <div class="dotted"></div>
         <div id="graphs" class="flex">
           <div id="mapline" class="flex-down">
-              <h5 id="select-country">Let's explore the data!</h5>
+              <h5 id="select-country">Let's explore more with the data!</h5>
               <h5 id="select-country-detail">
-                Hover on the map to explore how much the U.S. imported from each country in total during the WTO period between 1995 and 2018
-                (the darker the country is, the more the U.S. imported from).
-                Below the map is a bar graph, where you can use the year dropdown to see the top 10 countries that the U.S. imported from each year.</h5>
-              <div class="line-top-left1"></div>
-              <div class="line-top-right1"></div>
-              <div class="line-left1"></div>
-              <div class="line-right1"></div>   
-              <div class="line-bottom1"></div>
-              <h5 id="select-country-detail">You can hover on the map to see the import values, and select the year
-                you'd like to view in detail by clicking on the circle. The graph on the right will update accordingly.</h5>
+                Similar to the export page, you can use the drop-downs below to take a look at the top 20 countries that the U.S. 
+                imported from each year during the WTO period, as well as explore trends in imports from each country.
+                
+                Don't forget to click the dots on the line chart to view product information for the country and the year you are interested in. 
+                Your selections will appear on the right and the isotype graph on the right will get updated accordingly.</h5>
               <div class=bar-year>
                 <div id="cyear2" class="flex"></div>      
                 <div id="barchart2"></div>
@@ -110,22 +98,17 @@
           </div>
 
           <div id="iso" class="flex-down">
-            <h5>Selected Country:
+            <h5 class="select-text">Selected Country:
               <span id="selected-country2"></span>
             </h5>
-            <h5>
+            <h5 class="select-year">
               Selected Year: 
               <span id="selected-year2"></span>
             </h5>
             <h5 id="isotype-detail">This isotype graph gets updated based on your previous selections, which are
               also listed above (the default is Canada 2018). Explore with the selections on the left!</h5>
+            <h5 id="isotype-legend">1 icon represents $100,000 in value</h5>
             <div id="isotypegraph2"></div>
-            <h5>1 icon represents $100,000 in value</h5>
-            <div class="line-top-left4"></div>
-            <div class="line-top-right4"></div>
-            <div class="line-left4"></div>
-            <div class="line-right4"></div>   
-            <div class="line-bottom4"></div>
           </div> 
         </div>
       </div>

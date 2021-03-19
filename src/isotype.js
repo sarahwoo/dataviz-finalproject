@@ -16,7 +16,7 @@ function makeIso(country, year) {
       x: {type: 'ordinal', axis: {title: null}, field: 'x'},
       y: {type: 'nominal', axis: {title: null}, field: 'Product'},
     },
-    height: 250,
+    height: 220,
     transform: [
       {window: [{op: 'rank', field: '', as: 'x'}], groupby: ['Product']},
     ],

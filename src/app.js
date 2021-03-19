@@ -9,7 +9,7 @@ import {interpolateRainbow} from 'd3-scale-chromatic';
 import vegaEmbed from 'vega-embed';
 import Isotype from './isotype';
 import Isotype2 from './isotype2'
-import {create} from 'lodash';
+import {create, first} from 'lodash';
 const groupBy = require('lodash.groupby');
 const state = {Name: 'Canada', Year: 2018};
 
@@ -24,12 +24,12 @@ isotype2()
 
 const slides = [
   {
-    content1: "The United States currently trades with more than 200 countries and the U.S. is the world's largest trading nation in goods and services (source: The Office of the USTR). The top 10 countries that the U.S. exported to during the World Trade Organization period (1995-2018) are displayed by the bar graph on the right, where you can select a different year using the drop-down menu and hover over the graph to see the export values. Leveraging this information, follow through the steps below to explore the trends in U.S. exports, as well as the different products that the U.S. exported to different countries! (Data source: The ATLAS of Economic Complexity)",
+    content1: "The United States currently trades with more than 200 countries and the U.S. is the world's largest trading nation in goods and services (source: The Office of the USTR). Here, you can explore how much the U.S. trades with other countries. You can stay on this page to see details on exports or navigate using the button on top of the page to see details on imports. First, hover on the right map to explore how much the U.S. exported to each country in total during the WTO period between 1995 and 2018, where the darker the country is, the more the U.S. exported to. Note: all data are sourced from The ATLAS of Economic Complexity.",
     render: () => {selectAll('.slide').style('display', 'none');
       select('#slide-detail1').style('display', 'flex');},
   },
   {
-    content1: "The United States currently trades with more than 200 countries and the U.S. is the world's largest trading nation in goods and services (source: The Office of the USTR). The top 10 countries that the U.S. imported to during the World Trade Organization period (1995-2018) are displayed by the bar graph on the right, where you can select a different year using the drop-down menu and hover over the graph to see the import values. Leveraging this information, follow through the steps below to explore the trends in U.S. imports, as well as the different products that the U.S. imported to different countries! (Data source: The ATLAS of Economic Complexity)",
+    content1: "On this page, you can see the details on how much the U.S. imported to other countries, both at the country level as well as at the product level during the WTO period between 1998 and 2018. Note that the U.S. imported significantly more from its major trading partners, such as China, Canada and Mexico, than the amount it exported to. This may help explain why the trade protectionist policies often gain popularity in the U.S. to limit the amount of imports. Use the dropdowns below to explore more details on what the U.S. imported from countries around the world. Note: all data are sourced from The ATLAS of Economic Complexity.",
     render: () => {selectAll('.slide').style('display', 'none');
       select('#slide-detail2').style('display', 'flex');},
   },
@@ -67,8 +67,8 @@ function isotype() {
 
 function map() {
   //leveraged the following code for the map (https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html)
-  const mapwidth = 600;
-  const mapheight = 180;
+  const mapwidth = 400;
+  const mapheight = 160;
 
   const svgContainer = select('#worldmap')
     .append('div')
@@ -88,8 +88,8 @@ function map() {
   var path = d3.geoPath();
   var projection = d3
     .geoMercator()
-    .scale(82)
-    .center([0, 4.7])
+    .scale(60)
+    .center([0, 0])
     .translate([mapwidth / 2, mapheight / 2]);
 
   var data = d3.map();
@@ -179,9 +179,9 @@ function createbar() {
     .then(barc);
 
   function barc(data) {
-    const height2 = 125;
+    const height2 = 150;
     const width2 = 550;
-    const margin2 = {top: 10, bottom: 70, left: 60, right: 50};
+    const margin2 = {top: 5, bottom: 75, left: 60, right: 50};
     const plotWidth2 = width2 - margin2.left - margin2.right;
     const plotHeight2 = height2 - margin2.top - margin2.bottom;
 
@@ -379,7 +379,7 @@ function createline() {
 
   function linec(data) {
     const width = 610;
-    const height = 80;
+    const height = 100;
     const margin = {top: 10, bottom: 30, left: 150, right: 20};
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
@@ -573,8 +573,8 @@ function isotype2() {
 
 function map2() {
   //leveraged the following code for the map (https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html)
-  const mapwidth = 600;
-  const mapheight = 180;
+  const mapwidth = 400;
+  const mapheight = 160;
 
   const svgContainer = select('#worldmap2')
     .append('div')
@@ -594,8 +594,8 @@ function map2() {
   var path = d3.geoPath();
   var projection = d3
     .geoMercator()
-    .scale(82)
-    .center([0, 4.7])
+    .scale(60)
+    .center([0, 0])
     .translate([mapwidth / 2, mapheight / 2]);
 
   var data = d3.map();
@@ -685,9 +685,9 @@ function createbar2() {
     .then(barc);
 
   function barc(data) {
-    const height2 = 125;
+    const height2 = 150;
     const width2 = 550;
-    const margin2 = {top: 10, bottom: 70, left: 60, right: 50};
+    const margin2 = {top: 5, bottom: 75, left: 60, right: 50};
     const plotWidth2 = width2 - margin2.left - margin2.right;
     const plotHeight2 = height2 - margin2.top - margin2.bottom;
 
@@ -885,7 +885,7 @@ function createline2() {
 
   function linec(data) {
     const width = 610;
-    const height = 80;
+    const height = 100;
     const margin = {top: 10, bottom: 30, left: 150, right: 20};
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
