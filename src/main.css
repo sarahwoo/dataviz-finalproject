@@ -266,21 +266,24 @@ body {
 #isotypegraph {
   position: relative;
   padding-left: 70px;
-  padding-top: 20px;
+  padding-top: 12px;
+  margin-bottom: 0px;
 }
 
 #isotypegraph2 {
   position: relative;
   padding-left: 70px;
-  padding-top: 20px;
+  padding-top: 10px;
+  margin-bottom: 0px;
 }
 
-#isotype-legend {
+#isotype-title {
   margin-top: 0px;
   margin-bottom: 0px;
-  padding-top: 0px;
-  padding-left: 135px;
-  font-size: 16px;
+  padding-top: 20px;
+  padding-right: 170px;
+  font-size: 14px;
+  text-align: center;
 }
 
 #barchart {
@@ -304,6 +307,22 @@ body {
   font: 10px sans-serif;
   background: white;
   border: 3px solid  palevioletred;
+  border-radius: 8px;
+  pointer-events: none;
+  font-weight: bolder;
+  margin: auto;
+  display: inline-block;
+}
+
+#tooltip2 {
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  height: 30px;
+  padding: 5px;
+  font: 10px sans-serif;
+  background: white;
+  border: 3px solid paleturquoise;
   border-radius: 8px;
   pointer-events: none;
   font-weight: bolder;

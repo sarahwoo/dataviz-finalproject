@@ -3,13 +3,12 @@ import {select, selectAll} from 'd3-selection';
 import {extent} from 'd3-array';
 import {axisBottom, axisLeft} from 'd3-axis';
 import {csv} from 'd3-fetch';
-import {line, format} from 'd3';
+import {line} from 'd3';
 import {scaleLinear, scaleBand} from 'd3-scale';
 import {interpolateRainbow} from 'd3-scale-chromatic';
 import vegaEmbed from 'vega-embed';
 import Isotype from './isotype';
 import Isotype2 from './isotype2'
-import {create, first} from 'lodash';
 const groupBy = require('lodash.groupby');
 const state = {Name: 'Canada', Year: 2018};
 
@@ -41,8 +40,6 @@ function main() {
     currentSlideIdx = newIdx;
     renderSlide();
   };
-
-  const cont1 = select('#slide1-content h5');
 
   select('#export-button').on('click', () =>
     updateState(0),
@@ -77,7 +74,7 @@ function map() {
 
   const tooltip = svgContainer
     .append('div')
-    .attr('id', 'tooltip')
+    .attr('id', 'tooltip2')
     .style('display', 'none');
 
   const svg = svgContainer
@@ -113,6 +110,7 @@ function map() {
     .await(ready);
   
   function ready(error, topo) {
+    
     let mouseOver = function(event, d) {
       d3.selectAll('.Country')
         .transition()
@@ -126,7 +124,6 @@ function map() {
 
       tooltip
         .html(() => {
-          console.log(d.properties.name);
           return `
             <span style='color: grey'>Country: ${d.properties.name}</span><br/>
             <span style='color: grey'>Amount: $${d.Amounts}B</span><br/>
@@ -135,7 +132,7 @@ function map() {
         })
         .style('opacity', 1)
         .style('left', `${d.PageX}px`)
-        .style('top', `${d.PageY + 30}px`)
+        .style('top', `${d.PageY}px`)
         .style('display', 'block');
     };
 
@@ -187,35 +184,7 @@ function createbar() {
 
     const byyear = groupBy(data, d => d['Year']);
     const years = Object.keys(byyear);
-/*
-    const gyeardropdown = select('#gyear')
-      .append('div')
-      .attr('class', 'gyeardd')
-      .style('display', 'flex')
-      .selectAll('.gyeardd')
-      .data(['Year'])
-      .join('div')
-      .text(d => d);
-    
-    const globe = {Year: 2018};
-
-    gyeardropdown
-      .append('select')
-      .on('change', (event, row) => {
-        globe[row] = event.target.value;
-        renderbarc();
-      })
-      .selectAll('option')
-      .data(dim => {
-        return years.map(key => ({key, dim}));
-      })
-      .join('option')
-      .text(d => d.key)
-      .property('selected', d => {
-        return globe[d.dim] === d.key;
-      });
-*/
-     const yearrange = [
+    const yearrange = [
       1995,
       1996,
       1997,
@@ -583,7 +552,7 @@ function map2() {
 
   const tooltip = svgContainer
     .append('div')
-    .attr('id', 'tooltip')
+    .attr('id', 'tooltip2')
     .style('display', 'none');
 
   const svg = svgContainer
@@ -693,35 +662,7 @@ function createbar2() {
 
     const byyear = groupBy(data, d => d['Year']);
     const years = Object.keys(byyear);
-/*
-    const gyeardropdown = select('#gyear')
-      .append('div')
-      .attr('class', 'gyeardd')
-      .style('display', 'flex')
-      .selectAll('.gyeardd')
-      .data(['Year'])
-      .join('div')
-      .text(d => d);
-    
-    const globe = {Year: 2018};
-
-    gyeardropdown
-      .append('select')
-      .on('change', (event, row) => {
-        globe[row] = event.target.value;
-        renderbarc();
-      })
-      .selectAll('option')
-      .data(dim => {
-        return years.map(key => ({key, dim}));
-      })
-      .join('option')
-      .text(d => d.key)
-      .property('selected', d => {
-        return globe[d.dim] === d.key;
-      });
-*/
-     const yearrange = [
+    const yearrange = [
       1995,
       1996,
       1997,
@@ -1047,6 +988,7 @@ function createline2() {
         .on('mouseover', function(event, d) {
           tooltip
             .html(() => {
+              console.log(d);
               return `
                 <span style='color: grey'>${d.Name}</span><br/>
                 <span style='color: grey'>Year: ${d.Year}</span><br/>
@@ -1070,4 +1012,5 @@ function createline2() {
     renderlinec();
   }
 }
+
 
