@@ -23,12 +23,12 @@ isotype2()
 
 const slides = [
   {
-    content1: "The United States currently trades with more than 200 countries and the U.S. is the world's largest trading nation in goods and services (source: The Office of the USTR). Here, you can explore how much the U.S. trades with other countries. You can stay on this page to see details on exports or navigate using the button on top of the page to see details on imports. First, hover on the right map to explore how much the U.S. exported to each country in total during the WTO period between 1995 and 2018, where the darker the country is, the more the U.S. exported to. Note: all data are sourced from The ATLAS of Economic Complexity.",
+    content1: "The U.S. currently trades with more than 200 countries and the U.S. is the world's largest trading nation in goods and services (source: The Office of the USTR). Here, you can explore how much the U.S. has traded with other countries. You can stay on this page to see the details on exports or navigate using the buttons on top of this page to see the details on imports. First, try hovering on the right map to explore how much the U.S. exported to each country in total during the WTO period between 1995 and 2018, where the darker the country is in blue, the more the U.S. had exported.",
     render: () => {selectAll('.slide').style('display', 'none');
       select('#slide-detail1').style('display', 'flex');},
   },
   {
-    content1: "On this page, you can see the details on how much the U.S. imported to other countries, both at the country level as well as at the product level during the WTO period between 1998 and 2018. Note that the U.S. imported significantly more from its major trading partners, such as China, Canada and Mexico, than the amount it exported to. This may help explain why the trade protectionist policies often gain popularity in the U.S. to limit the amount of imports. Use the dropdowns below to explore more details on what the U.S. imported from countries around the world. Note: all data are sourced from The ATLAS of Economic Complexity.",
+    content1: "On this page, you can see the details on how much the U.S. imported from other countries, both at the country level as well as at the product level during the WTO period between 1995 and 2018. Note that the U.S. imported significantly more from its major trading partners, such as China, Canada and Mexico, than the amount it exported to. Similar to the export page, you can use the dropdowns below to explore more details on what and how much the U.S. imported from other countries around the world.",
     render: () => {selectAll('.slide').style('display', 'none');
       select('#slide-detail2').style('display', 'flex');},
   },
@@ -65,7 +65,7 @@ function isotype() {
 function map() {
   //leveraged the following code for the map (https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html)
   const mapwidth = 400;
-  const mapheight = 160;
+  const mapheight = 150;
 
   const svgContainer = select('#worldmap')
     .append('div')
@@ -541,9 +541,8 @@ function isotype2() {
 }
 
 function map2() {
-  //leveraged the following code for the map (https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html)
   const mapwidth = 400;
-  const mapheight = 160;
+  const mapheight = 150;
 
   const svgContainer = select('#worldmap2')
     .append('div')

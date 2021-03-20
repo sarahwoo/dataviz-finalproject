@@ -28,7 +28,7 @@
       <div id="slide1-content" class="flex-down">
         <div id="above-graphs" class="flex">
           <div class="top-left-margin"></div>
-          <h5 class="content"></h5>
+            <h5 class="content flex-down"></h5>
           <div id="worldmap"></div>
           <div class="top-right-margin"></div>
         </div>
@@ -69,6 +69,7 @@
               (one icon = 20 million USD)
             </h5>
             <div id="isotypegraph"></div>
+            <h5 id="source">Note: all data are sourced from <a href="https://atlas.cid.harvard.edu/">The ATLAS of Economic Complexity.</a></h5>        
           </div> 
         </div>
       </div>
@@ -88,9 +89,9 @@
               <h5 id="select-country">Let's explore more with the data!</h5>
               <h5 id="select-country-detail">
                 Similar to the export page, you can use the drop-downs below to take a look at the top 20 countries that the U.S. 
-                imported from each year during the WTO period, as well as explore trends in imports from each country.
+                imported from each year during the WTO period. You can also explore trends in imports from each country using the line graph.
                 
-                Don't forget to click the dots on the line chart to view product information for the country and the year you are interested in. 
+                Don't forget to click on the dots to view product information for the country and the year you are interested in. 
                 Your selections will appear on the right and the isotype graph on the right will get updated accordingly.</h5>
               <div class=bar-year>
                 <div id="cyear2" class="flex"></div>      
@@ -109,13 +110,14 @@
               <span id="selected-year2"></span>
             </h5>
             <h5 id="isotype-detail">This isotype graph gets updated based on your previous selections, which are
-              also listed above (the default is Canada 2018, and since each icon represents in value, 
-              less than that would not appear). Explore with the selections on the left!</h5>
+              also listed above (since each icon represents $20M, imports 
+              less than that would not appear below). Explore with the selections on the left!</h5>
             <h5 id="isotype-title">
               Product Compositions for the Country & Year selected<br>
               (one icon = 20 million USD)
             </h5>  
-            <div id="isotypegraph2"></div>        
+            <div id="isotypegraph2"></div>
+            <h5 id="source">Note: all data are sourced from <a href="https://atlas.cid.harvard.edu/">The ATLAS of Economic Complexity.</a></h5>        
           </div> 
         </div>
       </div>
@@ -123,5 +125,4 @@
     <script src="bundle.js"></script>
   </div>
 </body>
-
 </html>
