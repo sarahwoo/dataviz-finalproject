@@ -258,28 +258,24 @@ body {
 }
 
 #linechart {
-  position: relative;
   margin-top: 0px;
   padding-left: 122px;
   padding-top: 10px;
 }
 
 #linechart2 {
-  position: relative;
   margin-top: 5px;
   padding-left: 122px;
   padding-top: 10px;
 }
 
 #isotypegraph {
-  position: relative;
   padding-left: 70px;
   padding-top: 12px;
   margin-bottom: 0px;
 }
 
 #isotypegraph2 {
-  position: relative;
   padding-left: 70px;
   padding-top: 10px;
   margin-bottom: 0px;
@@ -295,13 +291,11 @@ body {
 }
 
 #barchart {
-  position: relative;
   padding-left: 210px;
   height: 130px;
 }
 
 #barchart2 {
-  position: relative;
   padding-left: 210px;
   height: 130px;
 }

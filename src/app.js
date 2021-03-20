@@ -510,7 +510,6 @@ function createline() {
         .on('mouseover', function(event, d) {
           tooltip
             .html(() => {
-              console.log(d);
               return `
                 <span style='color: grey'>${d.Name}</span><br/>
                 <span style='color: grey'>Year: ${d.Year}</span><br/>
@@ -600,7 +599,6 @@ function map2() {
   
       tooltip
         .html(() => {
-          console.log(d);
           return `
             <span style='color: grey'>Country: ${d.properties.name}</span><br/>
             <span style='color: grey'>Amount: $${d.Amounts}B</span><br/>
@@ -987,7 +985,6 @@ function createline2() {
         .on('mouseover', function(event, d) {
           tooltip
             .html(() => {
-              console.log(d);
               return `
                 <span style='color: grey'>${d.Name}</span><br/>
                 <span style='color: grey'>Year: ${d.Year}</span><br/>
